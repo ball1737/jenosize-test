@@ -12,6 +12,7 @@ import { AxiosLayout } from "@/component/axios";
 import type { User } from "@/store/auth";
 
 const inter = Inter({ subsets: ["latin"] });
+// const googleMapKey = "AIzaSyAIFLj2onkl1L4CufB1-PsLA-F47S_3-Nk";
 
 // export const metadata: Metadata = {
 //   title: "Home | Jenosize test system",
