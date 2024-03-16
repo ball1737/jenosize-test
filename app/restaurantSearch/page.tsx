@@ -1,24 +1,53 @@
 "use client";
 
-import axios from "axios";
-import { useState } from "react";
+import { useEffect } from "react";
 
-const imgUri = (ref) =>
-  `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=AIzaSyAIFLj2onkl1L4CufB1-PsLA-F47S_3-Nk`;
+import { restaurantStore } from "@/store/restaurant";
+
+import Footer from "./component/footer";
+import RestaurantCard from "./component/restaurantCard";
+import TopNavigationBar from "./component/topNavigationBar";
 
 export default function restaurantSearch() {
-  const [restaurant, setResaurant] = useState();
+  const { restaurant, resetRestaurant } = restaurantStore();
 
-  const callApiService = async (searchKey: string) => {
-    const res = await axios.post<any>(`/search`, { search: searchKey });
-    setResaurant(res.data);
+  useEffect(() => {
+    resetRestaurant();
+  }, []);
+
+  useEffect(() => {
     console.log(restaurant);
-  };
+  }, [restaurant]);
 
   return (
     <>
-      <div className="flex h-screen items-center w-full justify-center" onClick={() => callApiService("mk")}>
-        restaurantSearch
+      <div className="flex flex-col w-full bg-white min-h-screen h-full justify-between">
+        {/** top nav */}
+        <TopNavigationBar></TopNavigationBar>
+        <div className=" flex flex-col w-full items-center">
+          {restaurant?.length === 0 ? (
+            <>
+              <div className="text-black">Search restaurant in Thailand.</div>
+              <div className="text-black">How to : Fill key in search box and press Enter.</div>
+            </>
+          ) : (
+            <>
+              {restaurant?.map(({ name, address, phoneNumber, imgName }, index) => {
+                return (
+                  <RestaurantCard
+                    key={index}
+                    name={name}
+                    address={address}
+                    phoneNumber={phoneNumber}
+                    imgName={imgName}
+                  ></RestaurantCard>
+                );
+              })}
+            </>
+          )}
+        </div>
+        {/** footer */}
+        <Footer></Footer>
       </div>
     </>
   );

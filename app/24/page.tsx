@@ -13,9 +13,13 @@ export default function twentyFour() {
     event.preventDefault();
     setIs24("");
     setIsLoading(true);
-    const res = await axios.post<any>(`/game24`, { setNumbers: number });
-    setIs24(res.data);
-    setIsLoading(false);
+    try {
+      const res = await axios.post<any>(`/game24`, { setNumbers: number });
+      setIs24(res.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
   }
   return (
     <>

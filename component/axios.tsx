@@ -6,17 +6,20 @@ import { useRouter } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 
+import type { User } from "@/store/auth";
 import { useAuthStore } from "@/store/auth";
 
 export const AxiosLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const { user, setLogout } = useAuthStore();
   const router = useRouter();
+  const userStore = JSON.parse(localStorage.getItem("user") || "false") as User;
 
   useEffect(() => {
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_API;
     axios.defaults.headers.common = {
       Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
     };
+    axios.defaults.headers["api-key"] = userStore.uid || "";
     axios.defaults.timeout = 60000;
 
     const interceptor = axios.interceptors.response.use(

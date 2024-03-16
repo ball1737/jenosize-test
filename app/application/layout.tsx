@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login",
-  description: "Login to Jenosize test system",
+  title: "Application",
+  description: "Jenosize test | Application",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
