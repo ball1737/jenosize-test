@@ -1,5 +1,8 @@
 "use client";
 
+import { faSquareGooglePlus } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons/faFacebookSquare";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { initializeApp } from "firebase/app";
 import {
   FacebookAuthProvider,
@@ -53,14 +56,11 @@ export default function Login() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    console.log(email);
-    console.log(password);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const { user } = userCredential;
         const token = user.accessToken;
-        console.log(userCredential);
 
         setIsLoading(false);
         logedIn({ token, user });
@@ -81,7 +81,6 @@ export default function Login() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const { user } = result;
-        console.log({ token, user });
         logedIn({ token, user });
       })
       .catch((error: any) => {
@@ -99,7 +98,6 @@ export default function Login() {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const { user } = result;
-        console.log({ token, user });
         logedIn({ token, user });
       })
       .catch((error: any) => {
@@ -115,8 +113,9 @@ export default function Login() {
     <>
       <div className="flex flex-col h-screen items-center w-full justify-center">
         <div>Login</div>
+
         <form onSubmit={onSubmit}>
-          <div className="">
+          <div className="flex flex-col">
             <label>Email</label>
             <input
               type="text"
@@ -126,7 +125,7 @@ export default function Login() {
               className="text-black p-3 m-1"
             />
           </div>
-          <div className="">
+          <div className="flex flex-col">
             <label>Password</label>
             <input
               type="password"
@@ -134,6 +133,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="text-black p-3 m-1"
+              autoComplete="false"
             />
           </div>
           <div className=" flex items-center justify-center mt-5">
@@ -146,17 +146,21 @@ export default function Login() {
             </button>
           </div>
         </form>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div>
-          <button onClick={() => loginWithGoogle()} className="bg-white text-black p-2 m-2 rounded-md">
-            LOGIN WITH GOOGLE
+
+        <div className="mt-10">
+          <button
+            onClick={() => loginWithGoogle()}
+            className="bg-white text-black p-2 m-2 rounded-md text-center flex items-center justify-center"
+          >
+            LOGIN WITH GOOGLE <FontAwesomeIcon className="ml-2 text-3xl" icon={faSquareGooglePlus} />
           </button>
         </div>
         <div>
-          <button onClick={() => loginWithFacebook()} className="bg-blue-500 text-black p-2 m-2 rounded-md">
-            LOGIN WITH FACEBOOK
+          <button
+            onClick={() => loginWithFacebook()}
+            className="bg-blue-500 text-black p-2 m-2 rounded-md text-center flex items-center justify-center"
+          >
+            LOGIN WITH FACEBOOK <FontAwesomeIcon className="ml-2 text-3xl" icon={faFacebookSquare} />
           </button>
         </div>
 

@@ -15,10 +15,6 @@ export default function restaurantSearch() {
     resetRestaurant();
   }, []);
 
-  useEffect(() => {
-    console.log(restaurant);
-  }, [restaurant]);
-
   return (
     <>
       <div className="flex flex-col w-full bg-white min-h-screen h-full justify-between">
@@ -28,7 +24,7 @@ export default function restaurantSearch() {
           {restaurant?.length === 0 ? (
             <>
               <div className="text-black">Search restaurant in Thailand.</div>
-              <div className="text-black">How to : Fill key in search box and press Enter.</div>
+              <div className="text-black">How to : Fill key in search box and press Enter or click at search icon.</div>
             </>
           ) : (
             <>

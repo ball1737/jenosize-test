@@ -1,58 +1,37 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
+import { faBars, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const TopNavigationBar: React.FC = () => {
-  const [restaurant, setResaurant] = useState();
-  const [searchKey, setSearchKey] = useState<string>("");
-
-  const callApiService = async (search: string) => {
-    const res = await axios.post<any>(`/search`, { search });
-    setResaurant(res.data);
-    console.log(restaurant);
-  };
-
+  const router = useRouter();
   return (
-    <div className="flex fixed w-full top-0 bg-white justify-between h-[120px] text-black">
-      <div className="flex h-full items-center">
-        <div className="m-3">
-          <Image
-            alt="Picture of the author"
-            src={"https://cdn.apikst.com/wl/?id=1pFnITEsfiLnNoS9Rd1ZcopgL4R7HIi4"}
-            width={75}
-            height={0}
-          ></Image>
+    <div className="sticky top-0 w-full">
+      <div className="flex flex-row w-full bg-blue-500 justify-between h-[100px] items-end">
+        <div className="m-3 cursor-pointer">
+          <FontAwesomeIcon icon={faHome} onClick={() => router.push("/")} />
         </div>
-        <div className="m-3">Jenosize-test | Restaurant Search</div>
-      </div>
-      <div className="flex h-full items-end">
-        <div className="m-3 flex-col items-start">
-          <div className="">
-            <label>Search</label>
-          </div>
-          <div className="">
-            <div className="relative">
-              <input
-                type="text"
-                className="pl-2 pr-4 py-2 border"
-                value={searchKey}
-                placeholder="Search"
-                onChange={(e) => setSearchKey(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") callApiService(searchKey);
-                }}
-              />
-              <div
-                className="absolute inset-y-0 right-0 pr-3  
-                    flex items-center  
-                    pointer-events-none"
-              >
-                <FontAwesomeIcon icon={faSearch} />
-              </div>
-            </div>
-          </div>
+        <div className="m-3">
+          <select
+            id="underline_select"
+            className="bg-transparent w-[150px] text-center  focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+            defaultValue={"All Report"}
+          >
+            <option className="text-black" value="All Report">
+              All Report
+            </option>
+            <option className="text-black" value="Daily Report">
+              Daily Report
+            </option>
+            <option className="text-black" value="Weekly Report">
+              Weekly Report
+            </option>
+            <option className="text-black" value="Monthly Report">
+              Monthly Report
+            </option>
+          </select>
+        </div>
+        <div className="m-3">
+          <FontAwesomeIcon icon={faBars} />
         </div>
       </div>
     </div>
