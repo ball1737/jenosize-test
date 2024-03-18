@@ -1,6 +1,6 @@
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { faChartPie, faCircleCheck, faGear, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import type { IconDefinition } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
